@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Title</title>
+    <title>부서목록</title>
 </head>
 <body>
     <h1>Welcome to Page Title</h1>

@@ -1,4 +1,4 @@
-package com.example.util;
+package com.example.demo.util;
 
 import java.sql.*;
 public class DBConnectionMgr {

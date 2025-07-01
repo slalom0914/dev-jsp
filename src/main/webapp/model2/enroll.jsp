@@ -10,7 +10,7 @@
 <h2 align="center">회원 가입 하기</h2>
 <hr>
 <section id="myinfo">
-    <form action="../../minsert.lo" id="enrollForm" method="post">
+    <form action="/model2/minsert.lo" id="enrollForm" method="post">
         <table>
             <tr>
                 <td>ID :</td>

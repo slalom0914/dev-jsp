@@ -26,6 +26,8 @@ public class MemberService {
     // Member 객체를 추가하는 메소드
     public int insertMember(Member m) {
         int result = memberDao.insertMember(m);
+        //result가 1이면 회원가입 성공 0이면 실패
+        log.info("result : "+result);
         return result;
     }
     // 기존 Member 객체의 정보를 수정하는 메소드

@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" import="com.example.demo.model2.*" %>
 <%
+    //상태를 저장하는 4가지 scope
+    //page, request, session, application
+    //getAttribute(키):Object - ClassCastingException - 형전환
+    //setAttribute("키","값")
+    //세션에는 언제 값이 저장되나요? 로그인 성공했을 때
     Member m = (Member)session.getAttribute("member");
-    out.print("m : "+m);
+    out.print("m : "+m);//null출력됨
 %>
 <!-- html영역 -->
 <%

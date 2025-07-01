@@ -5,9 +5,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
-
+@Log4j2
 @WebServlet("/model2/minsert.lo")
 public class MemberInsertServlet extends HttpServlet {
     public MemberInsertServlet() { }
@@ -22,8 +23,11 @@ public class MemberInsertServlet extends HttpServlet {
         String email = request.getParameter("email");
 
         int result = mservice.insertMember(new Member(id, passwd, name, email));
+        log.info(result);//0이면 등록 실패 1이면 등록 성공
         if (result > 0) {
-            response.sendRedirect("index.jsp");
-        } else { }
+            response.sendRedirect("./index.jsp");
+        } else { 
+            response.sendRedirect("./memberError.jsp");
+        }
     }
 }

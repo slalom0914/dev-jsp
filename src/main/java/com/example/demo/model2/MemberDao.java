@@ -62,7 +62,7 @@ public class MemberDao {
         ResultSet rset = null;
         int result = 0;
         // id로 테이블을 조회하여 있으면 1 이상, 없으면 0인 쿼리 작성
-        String query = "SELECT COUNT(*) FROM KH_MEMBER WHERE ID = ?";
+        String query = "SELECT COUNT(*) FROM MEMBER0630 WHERE ID = ?";
         try {
             pstmt = con.prepareStatement(query);
             pstmt.setString(1, id);
@@ -82,7 +82,7 @@ public class MemberDao {
         Connection con = dbMgr.getConnection();
         PreparedStatement pstmt = null;
         int result = 0;
-        String query = "INSERT INTO KH_MEMBER VALUES(?, ?, ?, ?)";
+        String query = "INSERT INTO MEMBER0630 VALUES(?, ?, ?, ?)";
         try {
             pstmt = con.prepareStatement(query);
             pstmt.setString(1, m.getId());
@@ -104,7 +104,7 @@ public class MemberDao {
         Connection con = dbMgr.getConnection();
         PreparedStatement pstmt = null;
         int result = 0;
-        String query = "UPDATE KH_MEMBER SET password = ?, NAME = ?, EMAIL = ? WHERE ID = ?";
+        String query = "UPDATE MEMBER0630 SET passwd = ?, NAME = ?, EMAIL = ? WHERE ID = ?";
         try {
             pstmt = con.prepareStatement(query);
             pstmt.setString(1, m.getPasswd());
@@ -124,7 +124,7 @@ public class MemberDao {
         Connection con = dbMgr.getConnection();
         PreparedStatement pstmt = null;
         int result = 0;
-        String query = "DELETE FROM KH_MEMBER WHERE ID = ?";
+        String query = "DELETE FROM MEMBER0630 WHERE ID = ?";
         try {
             pstmt = con.prepareStatement(query);
             pstmt.setString(1, id);

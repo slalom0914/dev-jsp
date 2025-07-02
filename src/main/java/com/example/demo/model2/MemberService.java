@@ -1,5 +1,7 @@
 package com.example.demo.model2;
 
+import java.util.Map;
+
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -10,8 +12,8 @@ public class MemberService {
     }
 
     // 로그인 시 Member 객체를 받아오는 메소드
-    public Member loginMember(String id, String passwd) {
-        Member m = memberDao.loginMember(id, passwd);
+    public Member loginMember(Map<String,Object> pmap) {
+        Member m = memberDao.loginMember(pmap);
         // 만일 아이디와 비번이 존재하지 않거나 오타이거나 하면
         //m은 null인 상태이다.
         return m;

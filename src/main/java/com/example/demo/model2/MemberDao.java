@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
 @Log4j2
 public class MemberDao {
@@ -24,8 +25,8 @@ public class MemberDao {
 // 사용자가 화면에서 입력한 값을 받아오기
 // String id = req.getParameter("id") - 사용자가 입력한 값 청취하는데 서블릿
 // String passwd = req.getParameter("passwd")
-    public Member loginMember(String id, String passwd) {
-        log.info(id + ", "+ passwd);
+    public Member loginMember(Map<String,Object> pmap) {
+        log.info(pmap.get("id") + ", "+ pmap.get("passwd"));
         Member m = null;
         con = dbMgr.getConnection();
         PreparedStatement pstmt = null;
@@ -34,8 +35,8 @@ public class MemberDao {
         String query = "SELECT id,passwd,name,email FROM MEMBER0630 WHERE ID = ? AND PASSWD = ?";
         try {
             pstmt = con.prepareStatement(query);
-            pstmt.setString(1, id);  // 첫번째 ‘?’ 에 id 값 대입
-            pstmt.setString(2, passwd);  // 두번째 ‘?’ 에 passwd 값 대입
+            pstmt.setString(1, pmap.get("id").toString());  // 첫번째 ‘?’ 에 id 값 대입
+            pstmt.setString(2, pmap.get("passwd").toString());  // 두번째 ‘?’ 에 passwd 값 대입
             rset = pstmt.executeQuery();
             if(rset.next()) {
                 m = new Member();

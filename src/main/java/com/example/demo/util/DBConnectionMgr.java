@@ -30,7 +30,7 @@ public class DBConnectionMgr {
      // 메서드 앞에 synchronized 붙이면 인터셉트 당하지 않음.
 
     public static synchronized DBConnectionMgr getInstance() {
-        if (dbMgr == null) {
+        if (dbMgr == null) {//널일 때만 new A해줘
             dbMgr = new DBConnectionMgr();
         }
         return dbMgr;

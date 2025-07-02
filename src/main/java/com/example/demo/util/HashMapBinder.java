@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 public class HashMapBinder {
   HttpServletRequest req = null;
   public HashMapBinder(HttpServletRequest req){
-    //this.req = req;
+    this.req = req;
   }
   //파라미터로 부터 자료구조를 받아온다. -pmap
 

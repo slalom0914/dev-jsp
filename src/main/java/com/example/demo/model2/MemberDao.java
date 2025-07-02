@@ -79,17 +79,17 @@ public class MemberDao {
         return result;
     }
     // DataBase에 Member 객체를 추가하는 메소드
-    public int insertMember(Member m) {
+    public int insertMember(Map<String,Object> pmap) {
         Connection con = dbMgr.getConnection();
         PreparedStatement pstmt = null;
         int result = 0;
         String query = "INSERT INTO MEMBER0630 VALUES(?, ?, ?, ?)";
         try {
             pstmt = con.prepareStatement(query);
-            pstmt.setString(1, m.getId());
-            pstmt.setString(2, m.getPasswd());
-            pstmt.setString(3, m.getName());
-            pstmt.setString(4, m.getEmail());
+            pstmt.setString(1, pmap.get("id").toString());
+            pstmt.setString(2, pmap.get("passwd").toString());
+            pstmt.setString(3, pmap.get("name").toString());
+            pstmt.setString(4, pmap.get("email").toString());
             // executeupdate() 는 실행 결과를 반영된 행의 개수로 리턴하므로
             // 1 이상은 실행 성공, 0 이하(구문 에러 포함)는 실패이다.
             result = pstmt.executeUpdate();

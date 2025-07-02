@@ -5,6 +5,14 @@
     <meta charset="UTF-8">
     <title>Enroll Member</title>
     <link rel="stylesheet" href="../../css/myStyle.css" />
+    <script>
+        function add(){
+            console.log('add 호출');
+            const f_member = document.querySelector("#enrollForm");
+            console.log(f_member);
+            f_member.submit();//전송
+        }
+    </script>
 </head>
 <body>
 <h2 align="center">회원 가입 하기</h2>
@@ -30,7 +38,7 @@
             </tr>
         </table>
         <p align="center">
-            <button type="submit">회원 가입하기</button> &nbsp; &nbsp;
+            <button type="button" onclick="add()">회원 가입하기</button> &nbsp; &nbsp;
             <button type="reset">작성 양식 초기화</button>
         </p>
     </form>

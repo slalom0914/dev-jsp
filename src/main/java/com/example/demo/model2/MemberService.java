@@ -26,8 +26,13 @@ public class MemberService {
     }
 
     // Member 객체를 추가하는 메소드
-    public int insertMember(Member m) {
-        int result = memberDao.insertMember(m);
+//    public int insertMember(Member m) {
+    public int insertMember(Map<String,Object> pmap) {
+        //MemberService가 꼭 필요한 클래스인가?
+        //서비스계층에서는 의사 결정하는 코드 존재함
+        //업무의 복잡도가 증가할 수록 여러 테이블에 입력,수정,삭제
+        //멀티 프로세스가 요구됨
+        int result = memberDao.insertMember(pmap);
         //result가 1이면 회원가입 성공 0이면 실패
         log.info("result : "+result);
         return result;

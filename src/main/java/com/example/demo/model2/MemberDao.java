@@ -25,8 +25,8 @@ public class MemberDao {
 // 사용자가 화면에서 입력한 값을 받아오기
 // String id = req.getParameter("id") - 사용자가 입력한 값 청취하는데 서블릿
 // String passwd = req.getParameter("passwd")
-    public Member loginMember(Map<String,Object> pmap) {
-        log.info(pmap.get("id") + ", "+ pmap.get("passwd"));
+    public Member loginMember(Member pm) {
+        log.info(pm.getId() + ", "+ pm.getPasswd());
         Member m = null;
         con = dbMgr.getConnection();
         PreparedStatement pstmt = null;
@@ -35,8 +35,8 @@ public class MemberDao {
         String query = "SELECT id,passwd,name,email FROM MEMBER0630 WHERE ID = ? AND PASSWD = ?";
         try {
             pstmt = con.prepareStatement(query);
-            pstmt.setString(1, pmap.get("id").toString());  // 첫번째 ‘?’ 에 id 값 대입
-            pstmt.setString(2, pmap.get("passwd").toString());  // 두번째 ‘?’ 에 passwd 값 대입
+            pstmt.setString(1,pm.getId());  // 첫번째 ‘?’ 에 id 값 대입
+            pstmt.setString(2, pm.getPasswd());  // 두번째 ‘?’ 에 passwd 값 대입
             rset = pstmt.executeQuery();
             if(rset.next()) {
                 m = new Member();
@@ -79,17 +79,17 @@ public class MemberDao {
         return result;
     }
     // DataBase에 Member 객체를 추가하는 메소드
-    public int insertMember(Map<String,Object> pmap) {
+    public int insertMember(Member pm) {
         Connection con = dbMgr.getConnection();
         PreparedStatement pstmt = null;
         int result = 0;
         String query = "INSERT INTO MEMBER0630 VALUES(?, ?, ?, ?)";
         try {
             pstmt = con.prepareStatement(query);
-            pstmt.setString(1, pmap.get("id").toString());
-            pstmt.setString(2, pmap.get("passwd").toString());
-            pstmt.setString(3, pmap.get("name").toString());
-            pstmt.setString(4, pmap.get("email").toString());
+            pstmt.setString(1, pm.getId());
+            pstmt.setString(2, pm.getPasswd());
+            pstmt.setString(3, pm.getName());
+            pstmt.setString(4, pm.getEmail());
             // executeupdate() 는 실행 결과를 반영된 행의 개수로 리턴하므로
             // 1 이상은 실행 성공, 0 이하(구문 에러 포함)는 실패이다.
             result = pstmt.executeUpdate();

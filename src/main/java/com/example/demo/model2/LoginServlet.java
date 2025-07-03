@@ -61,7 +61,9 @@ public class LoginServlet extends HttpServlet {
         //JSON파싱(Gson)
         Gson g = new Gson();
         Member member = g.fromJson(jsonData, Member.class);
-
+        //파싱된 값을 출력해 보기
+        log.info("리액트에서 넘어온 아이디 : " + member.getId());
+        log.info("리액트에서 넘어온 비번 : " + member.getPasswd());
         // 입력받은 사용자의 ID와 비밀번호를 인자로 하여 Service의 loginMember()호출
         // select한 결과를 리턴 받아서 세션에 저장하기
         Member m = mservice.loginMember(member);

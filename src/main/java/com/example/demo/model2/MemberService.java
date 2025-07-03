@@ -12,8 +12,8 @@ public class MemberService {
     }
 
     // 로그인 시 Member 객체를 받아오는 메소드
-    public Member loginMember(Map<String,Object> pmap) {
-        Member m = memberDao.loginMember(pmap);
+    public Member loginMember(Member pm) {
+        Member m = memberDao.loginMember(pm);
         // 만일 아이디와 비번이 존재하지 않거나 오타이거나 하면
         //m은 null인 상태이다.
         return m;
@@ -27,12 +27,12 @@ public class MemberService {
 
     // Member 객체를 추가하는 메소드
 //    public int insertMember(Member m) {
-    public int insertMember(Map<String,Object> pmap) {
+    public int insertMember(Member pm) {
         //MemberService가 꼭 필요한 클래스인가?
         //서비스계층에서는 의사 결정하는 코드 존재함
         //업무의 복잡도가 증가할 수록 여러 테이블에 입력,수정,삭제
         //멀티 프로세스가 요구됨
-        int result = memberDao.insertMember(pmap);
+        int result = memberDao.insertMember(pm);
         //result가 1이면 회원가입 성공 0이면 실패
         log.info("result : "+result);
         return result;

@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -49,12 +50,21 @@ public class LoginServlet extends HttpServlet {
         log.info("doPost 호출");
         MemberService mservice = new MemberService();
 
-        HashMapBinder hmb = new HashMapBinder(request);//서블릿이어야함
-        Map<String, Object> pmap = new HashMap<>();
-        hmb.binder(pmap);
+        //request body의 JSON을 String으로 읽기
+        BufferedReader reader = request.getReader();
+        StringBuilder sb = new StringBuilder();
+        String line=null;
+        while((line=reader.readLine())!=null){
+            sb.append(line);
+        }
+        String jsonData = sb.toString();
+        //JSON파싱(Gson)
+        Gson g = new Gson();
+        Member member = g.fromJson(jsonData, Member.class);
+
         // 입력받은 사용자의 ID와 비밀번호를 인자로 하여 Service의 loginMember()호출
         // select한 결과를 리턴 받아서 세션에 저장하기
-        Member m = mservice.loginMember(pmap);
+        Member m = mservice.loginMember(member);
         Map<String, Object> map = new HashMap<>();
         //조회결과가 존재하면? true, 존재하지 않으면 false
         if (m != null) {//조회결과가 있을 때

@@ -3,6 +3,8 @@ package lab.ch01;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import org.apache.log4j.Logger;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,15 +13,20 @@ import jakarta.servlet.http.HttpServletResponse;
 //서블릿에서 화면(UI/UX)을 그리는 건 비효율적임 -> 그래서 JSP API내놓았음
 @WebServlet("/hello")
 public class HelloServlet extends HttpServlet {
+	Logger log = Logger.getLogger(HelloServlet.class);
 	//수정할 때 - UPDATE member SET mem_pw = 123 WHERE mem_id=kiwi
 	public void doPut(HttpServletRequest req, HttpServletResponse res)
 	throws ServletException, IOException{
-		System.out.println("doPut호출");
+		//System.out.println("doPut호출");
+		log.info("doPut "+req.getParameter("mem_id")
+		            +", "+req.getParameter("mem_pw"));
 	}
 	//삭제할 때 - DELETE FROM member WHERE mem_id='kiwi'
 	public void doDelete(HttpServletRequest req, HttpServletResponse res)
 	throws ServletException, IOException{
-		System.out.println("doDelete호출");
+		//System.out.println("doDelete호출");
+		log.info("doDelete "+req.getParameter("mem_id")
+        +", "+req.getParameter("mem_pw"));		
 	}	
 	//입력 또는 보안상 중요한 요청일 때 -> 노출이 안되니까
 	//INSERT INTO member VALUES('kiwi','123','키위',,,,)
@@ -28,7 +35,9 @@ public class HelloServlet extends HttpServlet {
 	//개발시에는 get방식으로 단위테스트 활용해서 마무리되면 post방식으로 변경해서 커밋함.
 	public void doPost(HttpServletRequest req, HttpServletResponse res)
 	throws ServletException, IOException{
-		System.out.println("doPost호출");
+		//System.out.println("doPost호출");
+		log.info("doPost "+req.getParameter("mem_id")
+        +", "+req.getParameter("mem_pw"));		
 	}
 	//서블릿의 doGet메서드는 Restful API가 제공하는 get 메서드와 같다.
 	//파라미터 자리는 변수를 선언하는 자리 -> null
@@ -37,6 +46,8 @@ public class HelloServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 	throws ServletException, IOException
 	{
+		log.info("doGet "+req.getParameter("mem_id")
+        +", "+req.getParameter("mem_pw"));		
 		//GET방식으로 서버에 요청할 때 쿼리스트링을 사용할 수 있다.
 		//-> http://localhost:8000/hello?mem_id=kiwi&mem_pw=123
 		//res변수에 대해 생성이 안되었지만 NullPointerException발생하지 않음.

@@ -29,6 +29,7 @@ public class CrudDeptServlet extends HttpServlet {
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		log.info("doDelete");
+		resp.sendRedirect("/dept/deptDeleteOk.jsp");
 	}//end of doDelete
 	//조회,상세조회 - 주문조회, 로그인
 	/****************************************************************
@@ -57,11 +58,14 @@ public class CrudDeptServlet extends HttpServlet {
 		list.add(map);			
 		//요청이 유지도는 동안에는 이 주소번지로 공유가능함.
 		//공유가 안되면 NullPointerException -> 500 -> Runtime에러
+		//setAttribute의 소유주는 요청객체이다.
+		//setAttribute의 파라미터는 두 가지이다.
 		req.setAttribute("list", list);
 		//jsp페이지 호출하기 -forward로 해야 한다.
 		//왜냐하면 servlet과 jsp가 요청이 계속 유지되고 있다 라고 생각
 		//비상태 프로토콜이란 요청 URL이 바뀌면 기존에 요청이 끊어지고 새로운요청이 발생함.
 		//유지가 안됨
+		//기존의 요청 URL이 그대로 인데 실제 화면은 /dept/deptList.jsp가 출력됨
 		RequestDispatcher view = req.getRequestDispatcher("/dept/deptList.jsp");
 		view.forward(req, resp);		
 		
@@ -107,7 +111,7 @@ public class CrudDeptServlet extends HttpServlet {
 		//1.입력-청취 -> req.getParameter("dname");
 		//1.입력-청취 -> req.getParameter("loc");
 		//1.입력-청취 -> req.getParameter("deptno");
-		
+		resp.sendRedirect("/dept/deptUpdateOk.jsp");
 	}
 
 }

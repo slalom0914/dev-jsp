@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mybatis.mapper.DeptMapper">
+
+	<update id="deptUpdate" parameterType="lab.vo.DeptVO">
+		UPDATE dept
+		   SET dname = #{dname} 
+		      ,loc = #{loc} 
+		 WHERE deptno= #{deptno}	
+	</update>
+
+	<insert id="deptInsert" parameterType="lab.vo.DeptVO" >  
+	insert into dept (deptno, dname, loc) 
+	values (#{deptno}, #{dname}, #{loc}) 
+	</insert>
+
+	<select id="currentDate" parameterType="string" resultType="string">
+		SELECT to_char(sysdate, 'YYYY-MM-DD') FROM dual
+	</select>
 	<select id="deptList" parameterType="int" resultType="Map">
 		SELECT deptno, dname, loc FROM dept
 	</select>

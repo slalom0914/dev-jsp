@@ -27,6 +27,9 @@ public class DeptController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//사용자(3000번 서버)가 파라미터로 넘긴 값 출력해 보기
+		String deptno = req.getParameter("deptno");
+		log.info("사용자가 입력한 부서번호 : "+deptno);
 		resp.setContentType("application/json;utf-8");
 		PrintWriter out = resp.getWriter();
 		
@@ -55,8 +58,11 @@ public class DeptController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
+		log.info("doPost");
+		String deptno = req.getParameter("deptno");
+		String dname = req.getParameter("dname");
+		String loc = req.getParameter("loc");
+		log.info(deptno + ", " + dname + ", " + loc);
 	}
 
 	@Override

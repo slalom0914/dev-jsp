@@ -19,12 +19,15 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/dept")
 public class DeptController extends HttpServlet {
 	Logger log = Logger.getLogger(DeptController.class);
+	//부서 정보 삭제하기
+	//delete from dept where deptno = ?
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doDelete(req, resp);
+		log.info("doDelete");
+		String deptno = req.getParameter("deptno");
+		log.info(deptno);		
 	}
-
+	//부서 정보 조회하기
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//사용자(3000번 서버)가 파라미터로 넘긴 값 출력해 보기
@@ -55,7 +58,10 @@ public class DeptController extends HttpServlet {
 		imsi = g.toJson(list);
 		out.print(imsi);
 	}
-
+	//부서 정보 등록하기
+	//사용자로 부터 입력받은 값을 전달 받아서 처리하기
+	//Front-End : React -> JSON형식
+	//jsp : 폼 전송 받음 , 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		log.info("doPost");
@@ -64,11 +70,15 @@ public class DeptController extends HttpServlet {
 		String loc = req.getParameter("loc");
 		log.info(deptno + ", " + dname + ", " + loc);
 	}
-
+	//부서 정보 수정하기
+	//update dept set dname = ?, loc = ? where deptno = ?
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPut(req, resp);
+		log.info("doPut");
+		String deptno = req.getParameter("deptno");
+		String dname = req.getParameter("dname");
+		String loc = req.getParameter("loc");
+		log.info(deptno + ", " + dname + ", " + loc);		
 	}
 
 }

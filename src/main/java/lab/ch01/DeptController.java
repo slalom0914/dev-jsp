@@ -63,6 +63,11 @@ public class DeptController extends HttpServlet {
 		int result = -1;
 		
 		result = deptDao.deptInsert(map);
+		resp.setContentType("application/json; charset=utf-8");
+		PrintWriter out = resp.getWriter();
+		//서블릿에서 오라클 연동하기 까지 처리함. - myBatis외부 라이브러리 사용ㅇ
+		out.print(result);//등록성공이면 : 1, 등록실패이면 :  0
+		out.flush();
 	}
 	//부서 정보 수정하기
 	//update dept set dname = ?, loc = ? where deptno = ?

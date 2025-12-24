@@ -60,16 +60,25 @@ public class DeptController extends HttpServlet {
 				mapper.readValue(req.getInputStream(), Map.class);
 		log.info(map.get("deptno") + ", " 
 			   + map.get("dname") + ", " + map.get("loc"));
+		int result = -1;
+		
+		result = deptDao.deptInsert(map);
 	}
 	//부서 정보 수정하기
 	//update dept set dname = ?, loc = ? where deptno = ?
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		log.info("doPut");
-		String deptno = req.getParameter("deptno");
-		String dname = req.getParameter("dname");
-		String loc = req.getParameter("loc");
-		log.info(deptno + ", " + dname + ", " + loc);		
+		//요청 본문이 JSON포맷일 때 입력값 요청하기
+		Map<String,Object> map = 
+				mapper.readValue(req.getInputStream(), Map.class);
+		log.info(map.get("deptno") + ", " 
+			   + map.get("dname") + ", " + map.get("loc"));	
+		int result = deptDao.deptUpdate(map);
+		resp.setContentType("application/json;charset=utf-8");
+		PrintWriter out = resp.getWriter();
+		out.print(result);//1 아니면 0
+		out.flush();
 	}
 
 }

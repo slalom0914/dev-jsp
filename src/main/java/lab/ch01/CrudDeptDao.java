@@ -19,14 +19,14 @@ public class CrudDeptDao {
 	SqlSessionFactory sqlMapper = null;
 
 	// 부서 수정 처리
-	public int deptUpdate(DeptVO dvo) {
+	public int deptUpdate(Map<String,Object> pmap) {    
 		int result = -1;// 1이면 수정 성공, 0이면 수정 실패
 		SqlSessionFactoryBuilder ssfb = new SqlSessionFactoryBuilder();
 		try {
 			Reader reader = Resources.getResourceAsReader(resource);
 			sqlMapper = ssfb.build(reader);
 			SqlSession sqlSession = sqlMapper.openSession();
-			result = sqlSession.insert("deptUpdate", dvo);
+			result = sqlSession.insert("deptUpdate", pmap);
 			System.out.println(result);// 1
 			sqlSession.commit();
 		} catch (Exception e) {
@@ -36,14 +36,14 @@ public class CrudDeptDao {
 	}// end of 부서 수정
 
 	// 부서 입력 처리
-	public int deptInsert(DeptVO dvo) {
+	public int deptInsert(Map<String,Object> pmap) {
 		int result = -1;// 1이면 입력 성공, 0이면 입력 실패
 		SqlSessionFactoryBuilder ssfb = new SqlSessionFactoryBuilder();
 		try {
 			Reader reader = Resources.getResourceAsReader(resource);
 			sqlMapper = ssfb.build(reader);
 			SqlSession sqlSession = sqlMapper.openSession();
-			result = sqlSession.insert("deptInsert", dvo);
+			result = sqlSession.insert("deptInsert", pmap);
 			System.out.println(result);// 1
 			sqlSession.commit();
 		} catch (Exception e) {

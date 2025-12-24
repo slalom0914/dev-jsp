@@ -18,7 +18,8 @@
 		SELECT to_char(sysdate, 'YYYY-MM-DD') FROM dual
 	</select>
 	<select id="deptList" parameterType="lab.vo.DeptVO" resultType="Map">
-		SELECT deptno, dname, loc FROM dept
+		SELECT deptno as "deptno", dname as "dname"
+		     , loc as "loc" FROM dept
 		<if test='dname!=null'>
 		WHERE dname LIKE '%'||#{dname}||'%'
 		</if>

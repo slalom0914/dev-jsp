@@ -19,6 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/dept")
 public class DeptController extends HttpServlet {
 	Logger log = Logger.getLogger(DeptController.class);
+	CrudDeptDao deptDao = new CrudDeptDao();
 	//부서 정보 삭제하기
 	//delete from dept where deptno = ?
 	@Override
@@ -31,27 +32,14 @@ public class DeptController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//사용자(3000번 서버)가 파라미터로 넘긴 값 출력해 보기
-		String deptno = req.getParameter("deptno");
-		log.info("사용자가 입력한 부서번호 : "+deptno);
+		String dname = req.getParameter("dname");
+		log.info("사용자가 입력한 부서번호 : "+dname);
 		resp.setContentType("application/json;utf-8");
 		PrintWriter out = resp.getWriter();
 		
 		List<Map<String,Object>> list = new ArrayList<>();
-		Map<String, Object> map = new HashMap<>();
-		map.put("deptno",10);
-		map.put("dname","총무부");
-		map.put("loc","서울");
-		list.add(map);
-		map = new HashMap<>();
-		map.put("deptno",20);
-		map.put("dname","개발부");
-		map.put("loc","부산");
-		list.add(map);
-		map = new HashMap<>();
-		map.put("deptno",30);
-		map.put("dname","운영부");
-		map.put("loc","제주");
-		list.add(map);			
+		//메서드 오버로딩 - 같은이름의 메서드를 여러개 가진다.단 타입이 다르거나 갯수가 다를때만
+		list = deptDao.deptList(dname);
 		
 		String imsi = null;
 		Gson g = new Gson();

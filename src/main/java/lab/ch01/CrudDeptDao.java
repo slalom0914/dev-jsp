@@ -53,7 +53,7 @@ public class CrudDeptDao {
 	}// end of 부서 등록
 		// 부서 목록 조회
 
-	public List<Map<String, Object>> deptList() {
+	public List<Map<String, Object>> deptList(String dname) {
 		List<Map<String, Object>> list = null;
 		SqlSessionFactoryBuilder ssfb = new SqlSessionFactoryBuilder();
 		try {
@@ -61,7 +61,7 @@ public class CrudDeptDao {
 			sqlMapper = ssfb.build(reader);
 			SqlSession sqlSession = sqlMapper.openSession();
 			DeptVO dvo = new DeptVO();
-			dvo.setDname("운영");
+			dvo.setDname(dname);
 			list = sqlSession.selectList("deptList", dvo);
 			log.info(list);
 		} catch (Exception e) {
@@ -92,7 +92,8 @@ public class CrudDeptDao {
 		dvo.setDeptno(50);
 		dvo.setDname("운영부");
 		dvo.setLoc("부산");
-		deptDao.deptUpdate(dvo);
+		//deptDao.deptUpdate(dvo);
+		deptDao.deptList("개발");
 	}
 
 }

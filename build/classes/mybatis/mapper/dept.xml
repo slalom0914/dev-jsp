@@ -17,6 +17,13 @@
 	<select id="currentDate" parameterType="string" resultType="string">
 		SELECT to_char(sysdate, 'YYYY-MM-DD') FROM dual
 	</select>
+<!-- 
+myBatis에서는 조회결과에 대해서 resultType에 자동으로 담아 준다.
+이 때 타입이 Map이어서 키값이 필요한데 키값이 대문자로 저장됨.
+리액트에서는 컴포넌트 일때 대문자로 해야 한다. 
+이 부분이 있어 변수는 소문자로 사용함. -> 변수명을 통일하고 일관되게 사용하려고
+dept.xml문서의 컬럼명 자리에 별칭을 소문자로 붙여 주면 키값이 소문자로 처리됨.
+-->	
 	<select id="deptList" parameterType="lab.vo.DeptVO" resultType="Map">
 		SELECT deptno as "deptno", dname as "dname"
 		     , loc as "loc" FROM dept

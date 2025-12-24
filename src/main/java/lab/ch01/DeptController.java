@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import jakarta.servlet.ServletException;
@@ -19,6 +20,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/dept")
 public class DeptController extends HttpServlet {
 	Logger log = Logger.getLogger(DeptController.class);
+	ObjectMapper mapper = new ObjectMapper();
 	CrudDeptDao deptDao = new CrudDeptDao();
 	//부서 정보 삭제하기
 	//delete from dept where deptno = ?
@@ -53,10 +55,11 @@ public class DeptController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		log.info("doPost");
-		String deptno = req.getParameter("deptno");
-		String dname = req.getParameter("dname");
-		String loc = req.getParameter("loc");
-		log.info(deptno + ", " + dname + ", " + loc);
+		//요청 본문이 JSON포맷일 때 입력값 요청하기
+		Map<String,Object> map = 
+				mapper.readValue(req.getInputStream(), Map.class);
+		log.info(map.get("deptno") + ", " 
+			   + map.get("dname") + ", " + map.get("loc"));
 	}
 	//부서 정보 수정하기
 	//update dept set dname = ?, loc = ? where deptno = ?

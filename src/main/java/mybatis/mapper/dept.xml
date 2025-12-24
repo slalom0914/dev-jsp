@@ -17,7 +17,10 @@
 	<select id="currentDate" parameterType="string" resultType="string">
 		SELECT to_char(sysdate, 'YYYY-MM-DD') FROM dual
 	</select>
-	<select id="deptList" parameterType="int" resultType="Map">
+	<select id="deptList" parameterType="lab.vo.DeptVO" resultType="Map">
 		SELECT deptno, dname, loc FROM dept
+		<if test='dname!=null'>
+		WHERE dname LIKE '%'||#{dname}||'%'
+		</if>
 	</select>
 </mapper>

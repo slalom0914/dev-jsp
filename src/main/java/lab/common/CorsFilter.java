@@ -62,6 +62,8 @@ public class CorsFilter implements Filter {
         // ─────────────────────────────────────────────────────────────        
         if (origin != null && (
                 origin.equals("http://localhost:5500") ||
+                origin.equals("http://localhost:5501") ||
+                origin.equals("http://localhost:5502") ||
                 origin.equals("http://localhost:5173") ||
                 origin.equals("http://localhost:3000")
         )) {

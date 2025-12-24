@@ -60,7 +60,9 @@ public class CrudDeptDao {
 			Reader reader = Resources.getResourceAsReader(resource);
 			sqlMapper = ssfb.build(reader);
 			SqlSession sqlSession = sqlMapper.openSession();
-			list = sqlSession.selectList("deptList");
+			DeptVO dvo = new DeptVO();
+			dvo.setDname("운영");
+			list = sqlSession.selectList("deptList", dvo);
 			log.info(list);
 		} catch (Exception e) {
 			e.printStackTrace();

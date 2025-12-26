@@ -51,8 +51,25 @@ public class CrudDeptDao {
 		}
 		return result;
 	}// end of 부서 등록
-		// 부서 목록 조회
-
+	//Model계층이다.
+	//부서정보 삭제하기 구현
+	public int deptDelete(int i_deptno) {//call by value
+		int result = -1;
+		SqlSessionFactoryBuilder ssfb = new SqlSessionFactoryBuilder();
+		try {
+			Reader reader = Resources.getResourceAsReader(resource);
+			sqlMapper = ssfb.build(reader);
+			SqlSession sqlSession = sqlMapper.openSession();
+			//SqlSession sqlSession1 = sqlMapper.openSession(true);
+			//SqlSession sqlSession2 = sqlMapper.openSession(false);
+			result = sqlSession.delete("deptDelete",i_deptno);
+			sqlSession.commit();
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return result;
+	}//end of deptDelete
+	// 부서 목록 조회
 	public List<Map<String, Object>> deptList(String dname) {
 		List<Map<String, Object>> list = null;
 		SqlSessionFactoryBuilder ssfb = new SqlSessionFactoryBuilder();
@@ -95,5 +112,6 @@ public class CrudDeptDao {
 		//deptDao.deptUpdate(dvo);
 		deptDao.deptList("개발");
 	}
+
 
 }

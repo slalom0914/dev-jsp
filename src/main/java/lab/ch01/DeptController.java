@@ -27,8 +27,18 @@ public class DeptController extends HttpServlet {
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		log.info("doDelete");
+		//-> http://localhost:8000/dept?deptno=50 //쿼리스트링
 		String deptno = req.getParameter("deptno");
 		log.info(deptno);		
+		int i_deptno = Integer.parseInt(deptno);
+		//1이면 삭제 성공, 0이면 삭제 실패
+		int result = -1;//Front-End로 전달해서 후처리하기
+		result = deptDao.deptDelete(i_deptno);
+		resp.setContentType("application/json;charset=utf-8");
+		//resp.setContentType("text/plain;charset=utf-8");
+		PrintWriter out = resp.getWriter();
+		out.print(result);
+		out.flush();
 	}
 	//부서 정보 조회하기
 	@Override

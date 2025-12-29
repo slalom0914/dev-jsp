@@ -62,7 +62,7 @@ public class ActionSupport extends HttpServlet {
 		//viewName -> return "./deptInsertOk.jsp"
 		//viewName -> return new ModelAndView()
 		//insert here - HandlerMapping연결하기
-		obj = HandlerMapping.getController(command);
+		obj = HandlerMapping.getController(command, req, res);
 		String[] pageMove = null;
 		if(obj != null) {
 			ModelAndView mav = null;

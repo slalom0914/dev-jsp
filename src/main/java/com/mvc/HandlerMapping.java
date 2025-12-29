@@ -1,6 +1,12 @@
 package com.mvc;
 
+import java.io.IOException;
+
 import org.apache.log4j.Logger;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 public class HandlerMapping {
 	static Logger log = Logger.getLogger(HandlerMapping.class);
@@ -8,9 +14,13 @@ public class HandlerMapping {
 	 * 
 	 * @param command - dept/deptInsert , emp/empDelete
 	 *               , member/memberUpdate,,,
+	 * @param res 
+	 * @param req 
 	 * @return
 	 **********************************************************/
-	public static Controller getController(String command) {
+	public static Controller getController(String command, HttpServletRequest req, HttpServletResponse res) 
+	throws ServletException, IOException
+	{
 		Controller controller = null;
 		Object obj = null;
 		String commands[] = command.split("/");
@@ -26,6 +36,8 @@ public class HandlerMapping {
 				controller = new DeptController();
 				if("deptInsert".equals(methodName)) {
 					log.info("deptInsert-부서등록");
+					//사용자가 입력한 값을 전달 하기 위해서 req, res가 필요함
+					obj = controller.deptInsert(req,res);
 				}
 				else if("deptUpdate".equals(methodName)) {
 					log.info("deptUpdate-부서수정");

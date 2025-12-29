@@ -13,4 +13,14 @@ public interface Controller {
 	public String execute(HttpServletRequest req
                         , HttpServletResponse res, String viewName)
     throws Exception;
+	public Object deptInsert(HttpServletRequest req
+            , HttpServletResponse res);	
+	public Object deptUpdate(HttpServletRequest req
+            , HttpServletResponse res);
+	public Object deptDelete(HttpServletRequest req
+            , HttpServletResponse res);
+	public Object deptDetail(HttpServletRequest req
+            , HttpServletResponse res);
+	public Object deptList(HttpServletRequest req
+            , HttpServletResponse res);	
 }

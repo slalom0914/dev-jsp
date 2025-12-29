@@ -4,6 +4,14 @@
 		<param-name>log4jConfigLocation</param-name>
 		<param-value>/WEB-INF/classes/log4j.properties</param-value>
 	</context-param>  
+	<servlet>
+		<servlet-name>pojo</servlet-name>
+		<servlet-class>com.mvc.ActionSupport</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>pojo</servlet-name>
+		<url-pattern>*.ks</url-pattern>
+	</servlet-mapping>
 	<!-- CORS Filter -->
 	<filter>
 		<filter-name>CorsFilter</filter-name>

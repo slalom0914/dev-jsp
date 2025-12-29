@@ -3,6 +3,7 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 // -> *.ks 확장자가 ks로 끝나는 모든 요청에 대해서는 내가 가로챈다???
 import jakarta.servlet.http.HttpServlet;
@@ -52,10 +53,64 @@ public class ActionSupport extends HttpServlet {
 		log.info("end : "+end);//15
 		command = command.substring(0, end);
 		log.info(command);//-> dept/deptInsert
-		String[] path = command.split("/");
-		for(String s:path) {
-			log.info(s);
+		//요청 받은 내용을 해당 업무에 대응되는 XXXController전달하고
+		//응답처리를 위한 후처리를 해야 한다.
+		Object obj = null;//ModelAndView 또는 String
+		//viewName -> return "redirect:./deptInsertOk.jsp"
+		//viewName -> return "forward:./deptInsertOk.jsp"
+		//viewName -> return "./deptInsertOk.jsp"
+		//viewName -> return new ModelAndView()
+		//insert here - HandlerMapping연결하기
+		obj = HandlerMapping.getController(command);
+		String[] pageMove = null;
+		if(obj != null) {
+			ModelAndView mav = null;
+			//Object안에는 두 가지 타입이 있다.String(Insert,Update,Delete)
+			//, ModelAndView(select)
+			if(obj instanceof String) {
+				log.info("리턴타입이 String 일 때");
+				if(((String)obj).contains(":")) {//redirect이거나 forward
+					log.info("내 안에 콜론(:)이 있다.");
+					pageMove = obj.toString().split(":");
+				}else if(((String)obj).contains("/")) {
+					log.info("내 안에 슬래쉬(/)가 있다.");
+					pageMove = obj.toString().split("/");
+				}else {
+					log.info("내 안에 슬래쉬(/)도 없고 콜론도 없다.");
+				}
+			}//컨트롤러 요청메서드의 리턴타입이 String인 경우 끝
+			else if(obj instanceof ModelAndView) {
+				log.info("리턴타입이 ModelAndView 일 때");
+				
+				mav = (ModelAndView)obj;
+				pageMove = new String[2];
+				pageMove[0] = "modelAndView";
+				pageMove[1] = mav.getViewName();
+				
+			}//컨트롤러 요청메서드의 리턴타입이 ModelAndView인 경우 끝
+		}//end of obj가 널이 아닐 때 - NullPointerException예방하는 코드
+		//////////////////////////////////////////////////////
+		/////////////////[[ ViewResolver ]]//////////////
+		if(pageMove !=null && pageMove.length == 2) {
+			log.info("pageMove배열의 원소의 갯수가 2개 일 때");
+			String path = pageMove[1];//각 컨트롤러 클래스의 메서드가 정한 페이지이름
+			if("redirect".equals(pageMove[0])){
+				res.sendRedirect(path);
+			}else if("forward".equals(pageMove[1])) {
+				RequestDispatcher view = 
+						req.getRequestDispatcher("/"+path+".jsp");
+				view.forward(req, res);
+			}
+			//리턴타입이 String인데 redirect: 이거나 forward: 이 없는 경우
+			else {
+				RequestDispatcher view = 
+						req.getRequestDispatcher("/WEB-INF/views/"+path+".jsp");
+				view.forward(req, res);				
+			}
+			//스프링 부트에서는 요청에 대한 응답 URL을 완성해주는 ViewResolver클래스가 제공됨
+			/////////////////// pageMove의 원소의 갯수가 2개 일때 끝
 		}
-	}
+		
+	}//end of service
 
 }

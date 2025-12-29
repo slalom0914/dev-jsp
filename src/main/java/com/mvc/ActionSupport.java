@@ -1,5 +1,6 @@
 package com.mvc;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import org.apache.log4j.Logger;
 
@@ -102,14 +103,29 @@ public class ActionSupport extends HttpServlet {
 				view.forward(req, res);
 			}
 			//리턴타입이 String인데 redirect: 이거나 forward: 이 없는 경우
+			//ModelAndView인 경우를 말함
 			else {
+				//아래 경로는 브라우저를 통해서는 응답을 볼 수 없다.
+				//ModelAndView를 통하면 볼 수 있다.
 				RequestDispatcher view = 
-						req.getRequestDispatcher("/WEB-INF/views/"+path+".jsp");
+						req.getRequestDispatcher("/WEB-INF/jsp/"+path+".jsp");
 				view.forward(req, res);				
 			}
 			//스프링 부트에서는 요청에 대한 응답 URL을 완성해주는 ViewResolver클래스가 제공됨
-			/////////////////// pageMove의 원소의 갯수가 2개 일때 끝
+			/////////////////// pageMove의 원소의 갯수가 2개 일때 끝  
+		}//end of if
+		else if(pageMove !=null && pageMove.length == 1) {
+			log.info("pageMove원소의 갯수가 1개 일때 - 구현하지 않음");
 		}
+		//리턴 결과가 JSON포맷이라서 pageMove의 갯수가 2개 이상인 경우 포함
+		else {
+			res.setContentType("application/json;charset=UTF-8");
+			PrintWriter out = res.getWriter();
+			out.print(obj);
+			return;
+		}
+		
+		
 		
 	}//end of service
 

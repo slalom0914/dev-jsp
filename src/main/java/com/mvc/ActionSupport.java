@@ -28,9 +28,11 @@ public class ActionSupport extends HttpServlet {
 	// 삭제일 때 -> 메서드 이름 -> empDelete(req, res):int
 	// 단건 조회일 때 -> empDetail(req,res):Map or DeptVO
 	// n건 조회일 때 -> empList(req,res):List<Map>
-	// -> http://localhost:8000/member/crudMember.ks
+	// -> http://localhost:8000/member/memberInsert.ks
 	// 입력일 때 -> 메서드 이름 -> memberInsert(req, res):int
+	//http://localhost:8000/member/memberUpdate.ks
 	// 수정일 때 -> 메서드 이름 -> memberUpdate(req, res):int
+	//http://localhost:8000/member/memberDelete.ks
 	// 삭제일 때 -> 메서드 이름 -> memberDelete(req, res):int
 	// 단건 조회일 때 -> memberDetail(req,res):Map or DeptVO
 	// n건 조회일 때 -> memberList(req,res):List<Map>	
@@ -39,9 +41,21 @@ public class ActionSupport extends HttpServlet {
 			throws ServletException, IOException {
 		log.info("ActionSupport service");
 		String requestURI = req.getRequestURI();
-		log.info(requestURI);
+		log.info(requestURI);//-> /dept/deptInsert.ks
 		String contextPath = req.getContextPath();//-> / or /dev-jsp
 		log.info(contextPath);// -> / -> server.xml
+		//URL요청을 활용해서 업무이름과 메서드 이름을 알아낸다.
+		//dept앞에 슬래쉬를 제거한다.-> 슬래쉬를 기준으로 문자열 잘라서 배열에 담기
+		String command = requestURI.substring(contextPath.length()+1);
+		int end = command.lastIndexOf(".");
+		//-> dept/deptInsert.ks
+		log.info("end : "+end);//15
+		command = command.substring(0, end);
+		log.info(command);//-> dept/deptInsert
+		String[] path = command.split("/");
+		for(String s:path) {
+			log.info(s);
+		}
 	}
 
 }

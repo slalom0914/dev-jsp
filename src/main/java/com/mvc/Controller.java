@@ -1,5 +1,7 @@
 package com.mvc;
-
+// Controller controller = new DeptController();
+// Controller controller = new EmpController();
+// Controller controller = new MemberController();
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 //단독으로 인스턴스화 할 수 없다.- 생성자 가질 수 없다. 오직 추상메서드만 가짐
@@ -23,4 +25,27 @@ public interface Controller {
             , HttpServletResponse res);
 	public Object deptList(HttpServletRequest req
             , HttpServletResponse res);	
+/*
+	public Object empInsert(HttpServletRequest req
+            , HttpServletResponse res);	
+	public Object empUpdate(HttpServletRequest req
+            , HttpServletResponse res);
+	public Object empDelete(HttpServletRequest req
+            , HttpServletResponse res);
+	public Object empDetail(HttpServletRequest req
+            , HttpServletResponse res);
+	public Object empList(HttpServletRequest req
+            , HttpServletResponse res);	
+	
+	public Object memberInsert(HttpServletRequest req
+            , HttpServletResponse res);	
+	public Object memberUpdate(HttpServletRequest req
+            , HttpServletResponse res);
+	public Object memberDelete(HttpServletRequest req
+            , HttpServletResponse res);
+	public Object memberDetail(HttpServletRequest req
+            , HttpServletResponse res);
+	public Object memberList(HttpServletRequest req
+            , HttpServletResponse res);		
+*/	
 }

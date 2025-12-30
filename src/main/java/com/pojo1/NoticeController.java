@@ -26,6 +26,9 @@ import jakarta.servlet.http.HttpServletResponse;
  * :생성자를 활용해 본다(static대신에...)
  */
 // 프론트 컨트롤러(FrontMVC-서블릿상속->req, res제공할 수 있다.) 클래스를 추가하여
+// 서블릿이 아닌데 request, response는 어디서 주입 받아야 하나요?
+// 서블릿만이 request, response를 톰캣 으로 부터 주입 받는다.
+// 왜 주입이라고 말하나? -> 메서드 파라미터 자리에 있다.
 public class NoticeController implements Action{
 	Logger logger = Logger.getLogger(NoticeController.class);
 	//선언부는 타입을 생성부는 생성자호출 - 생성자를 모르면 static(메모리 에러원인)자꾸만 쓴다

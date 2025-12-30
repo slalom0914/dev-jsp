@@ -52,7 +52,7 @@ public class BoardController implements Controller {
 			hmb.bind(pMap);
 			bList = boardLogic.boardList(pMap);
 			req.setAttribute("bList",bList);
-			page = "forward:jsonBoardList.jsp";//-> pageMove[0]=forward, pageMove[1]=boardList.jsp
+			page = "forward:jsonBoardList";//-> pageMove[0]=forward, pageMove[1]=boardList.jsp
 		}
 		//상세내용 보고싶다 - forward
 		else if("boardDetail".equals(upmu[1])) {

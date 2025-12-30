@@ -36,7 +36,7 @@ public class FrontMVC extends HttpServlet {
 		//여기까지 pj1으로 요청이 들어왔을 때 web.xml을 통해서 FrontMVC클래스의 doService메소드 호출됨을
 		//확인하였다. 그 다음은 NoticeController의 execute 메소드 호출하기이다
 		NoticeController noticeController = new NoticeController();
-		if("notice".equals(upmu[0])) {
+		if("notice".equals(upmu[0])) {//split 배열 담음-첫번째방 -work
 			req.setAttribute("upmu", upmu);//배열의 주소번지
 			af = noticeController.execute(req, resp);
 		}
@@ -57,6 +57,14 @@ public class FrontMVC extends HttpServlet {
 		
 	}
 	//서블릿에서 정의된 메소드를 재정의하는 것
+	//요청을 받아주는 메서드 이름은 중요하지 않다.
+	//그러나 파라미터 자리에 request, response 객체는 톰캣으로 부터 주입을 받음
+	//두 가지 객체는 원본을 사용함.
+	//개발자 입장에서 보면 GET, POST, PUT, DELETE 상관없이 처리해 주어야 한다.
+	//요청에 대한 처리 창구를 일원화 할 필요가 있다.
+	// request 할 수 있는 것 - 사용자가 입력한 값을 청취
+	// response 할 수 있는 것 - UI를 통해서 입력 받은 값 -> 처리 -> 응답(html, json, xml, text)
+	// react -> useEffect -> 의존성배열, 상태값 반영(useState)
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub

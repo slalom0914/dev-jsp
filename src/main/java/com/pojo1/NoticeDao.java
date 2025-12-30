@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.Logger;
 
 
-//NoticeDao와 오라클 서버 사이에는 myBatis강이 흐른다
+//NoticeDao와 오라클 서버 사이에는 myBatis 레이어(SQL매핑오픈소스-반복되는 코드줄임) 추가됨
 public class NoticeDao {
 	Logger logger = Logger.getLogger(NoticeDao.class);
 

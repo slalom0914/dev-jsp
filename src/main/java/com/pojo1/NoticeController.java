@@ -25,10 +25,12 @@ import jakarta.servlet.http.HttpServletResponse;
  * :파라미터 타입도 바꾸어보자
  * :생성자를 활용해 본다(static대신에...)
  */
+// 프론트 컨트롤러(FrontMVC-서블릿상속->req, res제공할 수 있다.) 클래스를 추가하여
 public class NoticeController implements Action{
 	Logger logger = Logger.getLogger(NoticeController.class);
 	//선언부는 타입을 생성부는 생성자호출 - 생성자를 모르면 static(메모리 에러원인)자꾸만 쓴다
 	//이른(미리) 인스턴스화 라고 한다(<->게으른인스턴스화:필요한 시점에 그때 인스턴스화 하기)
+	//정적이다. -> 코드베이스 진행한 경우 -> 필요없음
 	NoticeLogic noticeLogic = new NoticeLogic();//new다음이 생성자 호출하는 문장
 	//게으른 인스턴스화는 선언과 생성을 따로 하는 것
 	@Override
@@ -111,7 +113,10 @@ public class NoticeController implements Action{
 			//위에서 인스턴스화를 완성하여 new 했다 하더라도 아래코드에서 null이 새롭게 치환될 수 있다(있어서 바꾼다)
 			nList = noticeLogic.noticeList(pMap);//전체조회, 조건검색과 1건 검색에도 재사용
 			req.setAttribute("nList", nList);
+			//각 업무 요청에 대한 응답 페이지 이름에 대한 결정권은 담당 업무에 대응하는 Controller책임이 있다.
 			path.append("noticeList.jsp");//ActionForward에 path변수에 초기화될 값
+			//조회 결과를 쥐고 있는 건 java이고 출력을 하는 곳은 jsp이다.
+			// XXX.java -> XXX.jsp사이에 상태값이 유지
 			isRedirect = false;//true이면 redirect-유지가안됨, false이면 forward이다-유지됨
 		}
 		//공지글 상세보기 - 1건만 가져오기(사용자가 하나를 선택해야함-n_no), noticeList와 메소드를 공유가능함

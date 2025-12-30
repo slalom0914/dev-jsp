@@ -10,6 +10,7 @@ public class NoticeLogic {
 	Logger logger = Logger.getLogger(NoticeLogic.class);
 	//게으른 인스턴스화- 필요할 때 생성자 호출해줄께 - 시점의 문제를 해결할 수 있니?
 	//이른 인스턴스화- 미리 생성자 호출해 둘께
+	//코드로 직접 인스턴스화
 	private NoticeDao noticeDao = new NoticeDao();
 	//전체조회일때와 상세조회 일때 공유함 -  noticeList, noticeDetail -> myBatis가 동적쿼리지원하니까...
 	public List<Map<String, Object>> noticeList(Map<String, Object> pMap) {//select -> 유지 -> forward

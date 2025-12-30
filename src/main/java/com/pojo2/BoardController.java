@@ -1,6 +1,7 @@
 package com.pojo2;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,8 +52,26 @@ public class BoardController implements Controller {
 			List<Map<String,Object>> bList = null;
 			hmb.bind(pMap);
 			bList = boardLogic.boardList(pMap);
-			req.setAttribute("bList",bList);
-			page = "forward:jsonBoardList";//-> pageMove[0]=forward, pageMove[1]=boardList.jsp
+			
+			List<Map<String,Object>> list = new ArrayList<>();
+			Map<String, Object> map = new HashMap<>();
+			map.put("b_no",10);
+			map.put("b_title","글제목10");
+			map.put("b_writer","나신입");
+			list.add(map);
+			map = new HashMap<>();
+			map.put("b_no",11);
+			map.put("b_title","글제목11");
+			map.put("b_writer","나초보");
+			list.add(map);
+			map = new HashMap<>();
+			map.put("b_no",12);
+			map.put("b_title","글제목12");
+			map.put("b_writer","나일등");
+			list.add(map);			
+			
+			req.setAttribute("list",list);
+			page = "forward:board/jsonBoardList";//-> pageMove[0]=forward, pageMove[1]=boardList.jsp
 		}
 		//상세내용 보고싶다 - forward
 		else if("boardDetail".equals(upmu[1])) {
